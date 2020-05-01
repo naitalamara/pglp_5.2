@@ -57,16 +57,49 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 		return a;
 	}
 
+	
+	
 	@Override
 	public Personnel update(Personnel obj) {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection con = DriverManager.getConnection(url)) {
+			PreparedStatement pre = con.prepareStatement(
+			"UPDATE personnels "
+			+ "SET prenom = ?"
+			+ "SET fonction = ?"
+			+ "datenaisssance = ?"
+			+ "WHERE nom = ?");
+
+			pre.setString(1, obj.getPrenom());
+			pre.setString(2, obj.getFonction());
+			pre.setDate(3, Date.valueOf(obj.getDatenaissance()));
+			pre.setString(4, obj.getNom());
+			int res = pre.executeUpdate();
+			assert res == 1;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("modification de l object "+ obj);
+		return obj;
 	}
 
 	@Override
 	public void delete(Personnel obj) {
-		// TODO Auto-generated method stub
+		try (Connection con = DriverManager.getConnection(url)) {
+			PreparedStatement stat = con.prepareStatement(
+					"DELETE FROM personnels "
+						+ "WHERE nom = ?");
+			stat.setString(1, obj.getNom());
+			int res = stat.executeUpdate();
+			assert res == 1;
+			System.out.println("Suppression de l objet " + obj);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();	
+		}
+		
+	}
 		
 	}
 
-}
+
