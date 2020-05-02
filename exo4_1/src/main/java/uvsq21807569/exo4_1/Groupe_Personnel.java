@@ -9,16 +9,16 @@ public class Groupe_Personnel extends Personneltype{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<Personneltype> listpers ;
+	private List<Personnel> listpers ;
 	private Integer id ;
 
 		public Groupe_Personnel(){
-			listpers=new ArrayList <Personneltype>();
+			listpers=new ArrayList <Personnel>();
 			id=(int)( Math.random()*( 900 - 1 + 1 ) ) + 1;
 		}
 
 		
-		public void addpersonnel(Personneltype a) {
+		public void addpersonnel(Personnel a) {
 
 		listpers.add(a);
 
@@ -37,7 +37,7 @@ public class Groupe_Personnel extends Personneltype{
 
 			}
 
-	public List<Personneltype> retournergroupe(){
+	public List<Personnel> retournergroupe(){
 
 		return listpers;
 
