@@ -23,5 +23,9 @@ public class test {
 			e.printStackTrace();
 		}
 		
+		int a =123456789;
+		String b="a";
+		System.out.println(b);
 	}
+	
 }

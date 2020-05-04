@@ -3,11 +3,15 @@ package uvsq21807569.exo4_1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 	private static String url =DerbyBd.url;
+	
+
 	
 	@Override
 	public Groupe_Personnel create(Groupe_Personnel obj) {
@@ -34,19 +38,32 @@ public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 				return obj;
 				}
 
-
-	
-
-			
-
-			
-		
 	
 
 	@Override
 	public Groupe_Personnel read(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Groupe_Personnel grp = null;
+		try (Connection con = DriverManager.getConnection(url)) {
+			System.out.println("Rechercher la personne avec  " + id);
+			PreparedStatement pre = con.prepareStatement("SELECT * FROM POSSEDE WHERE id = ?");
+			pre.setString(1, id);
+			grp = new Groupe_Personnel(id);
+			ResultSet res = pre.executeQuery();
+
+			PersonnelDAOjdbc jdbc = new PersonnelDAOjdbc();
+			while (res.next()) {
+
+		        grp.addpersonnel(jdbc.read(res.getString("nom")));
+
+		    }
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return grp;
+
+		
 	}
 
 	@Override

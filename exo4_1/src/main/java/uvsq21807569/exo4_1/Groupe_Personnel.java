@@ -10,11 +10,17 @@ public class Groupe_Personnel extends Personneltype{
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Personnel> listpers ;
-	private Integer id ;
+	private UUID id;
 
 		public Groupe_Personnel(){
 			listpers=new ArrayList <Personnel>();
-			id=(int)( Math.random()*( 900 - 1 + 1 ) ) + 1;
+			id = UUID.randomUUID();
+		}
+		public  Groupe_Personnel(String id) {
+
+			listpers=new ArrayList <Personnel>();
+			this.id = UUID.fromString(id);
+
 		}
 
 		
