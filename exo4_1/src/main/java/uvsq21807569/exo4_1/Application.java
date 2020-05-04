@@ -50,7 +50,7 @@ public class Application
     	// grp.affichage();
     	// grp.removepersonnel(a);
     	
-    	 grp.addpersonnel(grp2);
+    	
     	 grp.affichage();
        
     		   
