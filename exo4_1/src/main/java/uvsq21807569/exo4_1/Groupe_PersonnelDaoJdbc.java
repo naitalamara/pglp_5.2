@@ -74,7 +74,23 @@ public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 
 	@Override
 	public void delete(Groupe_Personnel obj) {
-		// TODO Auto-generated method stub
+		try (Connection con = DriverManager.getConnection(url)) {
+
+			PreparedStatement pre = con.prepareStatement(
+
+					"DELETE FROM Groupe "
+					+ "WHERE id = ?");
+
+			pre.setString(1, obj.getId());
+			int result = pre.executeUpdate();
+			assert result == 1;
+
+			System.out.println("Suppression du groupe  " + obj);
+}catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}
 		
 	}
 
