@@ -4,14 +4,12 @@ public class JdbcDaoFactory extends AbstractDaoFactory {
 
 	@Override
 	public DAO<Personnel> getPersonnelDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PersonnelDAOjdbc();
 	}
 
 	@Override
 	public DAO<Groupe_Personnel> getPersonnelGroupeDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Groupe_PersonnelDaoJdbc();
 	}
 
 }
