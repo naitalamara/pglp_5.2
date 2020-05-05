@@ -1,6 +1,9 @@
 package uvsq21807569.exo4_1;
 
 import java.util.Properties;
+
+import Liste_exception.ExisteException;
+
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -23,14 +26,14 @@ public class DerbyBd {
 		connectionProps.put("user", password);
 	}
 	
-	public void createTables() {
+	public void createTables() throws ExisteException {
 
 		try (Connection connect = DriverManager.getConnection(url)) {
 			Statement statement = connect.createStatement();
 		    DatabaseMetaData data = connect.getMetaData();
 		    ResultSet result = data.getTables(null, null, "PERSONNEL", null);
 		    if (result.next()){
-		    	System.out.println("table deja existante ");
+		    	throw new ExisteException ("table/Groupe  deja existant ");
 		    	}else {
 		    		statement.addBatch(
 		    		"CREATE TABLE Personnel("
@@ -44,7 +47,7 @@ public class DerbyBd {
 		    	}
 		    ResultSet resultat = data.getTables(null, null, "GROUPE", null);
 		    if (result.next()) {
-		    	System.out.println("table deja existante");
+		    	throw new ExisteException ("table/Groupe  deja existant ");
 		    } else {			
 
 			statement.addBatch("CREATE TABLE Groupe ("
@@ -54,7 +57,7 @@ public class DerbyBd {
 		    
 		    ResultSet resu = data.getTables(null, null, "POSSEDE", null);
 		    if (resu.next()) {
-		    	System.out.println("table deja existante ");
+		    	throw new ExisteException ("table/Groupe  deja existant ");
 		    } else {
 
 			statement.addBatch( 

@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import uvsq21807569.exo4_1.AbstractDaoFactory.DAOType;
 
 public class DAOTest {
@@ -44,6 +45,7 @@ public class DAOTest {
 		DAO<Personnel> per =AbstractDaoFactory.getFactory(DAOType.Serialiser).getPersonnelDAO();
 		per.delete(a);
 		b=per.create(a);
+		
 		assertEquals(b.getNom(), a.getNom());
 		assertEquals(b.getPrenom(), a.getPrenom());
 		assertEquals(b.getFonction(), a.getFonction());
@@ -64,7 +66,7 @@ public class DAOTest {
 	
 	
 	@Test
-	public void test2_avec_read() {
+	public void test2_avec_read()  {
 		DAO<Personnel> pers =AbstractDaoFactory.getFactory(DAOType.Serialiser).getPersonnelDAO();
 		pers.delete(a);
 		b=pers.create(a);
