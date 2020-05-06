@@ -68,24 +68,36 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 	@Override
 	public Personnel update(Personnel obj) {
 		try (Connection con = DriverManager.getConnection(url)) {
+			PreparedStatement statmnt = con.prepareStatement(
+					"SELECT * FROM personnel WHERE nom = ?  ");
+			statmnt.setString(1, obj.getNom());
+			ResultSet resu = statmnt.executeQuery();
+			if(!resu.next()) { 
+				System.out.println("mise a jours impossible car la personne que vous voulez metre a jours n'existe pas");
+			}else {
+			
+			
+			
 			PreparedStatement pre = con.prepareStatement(
-			"UPDATE personnel "
-			+ "SET prenom = ?"
-			+ "SET fonction = ?"
-			+ "datenaisssance = ?"
-			+ "WHERE nom = ?");
+					"UPDATE personnel SET prenom = ?, "
+
+							+ "fonction = ?, "
+
+							+ "datenaisssance = ? WHERE nom = ?");
 
 			pre.setString(1, obj.getPrenom());
 			pre.setString(2, obj.getFonction());
 			pre.setDate(3, Date.valueOf(obj.getDatenaissance()));
 			pre.setString(4, obj.getNom());
 			int res = pre.executeUpdate();
+			
 			assert res == 1;
+		}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("modification de l object "+ obj);
+		System.out.println("modifications reussites " );
 		return obj;
 	}
 
@@ -106,7 +118,7 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 			stat.setString(1, obj.getNom());
 			int res = stat.executeUpdate();
 			assert res == 1;
-			System.out.println("Suppression reussite de l objet " + obj.getNom());
+			
 		}
 		}
 		catch (SQLException e) {

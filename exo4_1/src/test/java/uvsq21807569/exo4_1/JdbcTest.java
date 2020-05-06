@@ -54,7 +54,7 @@ public class JdbcTest {
 		
 	}
 
-	/*
+	
 	@Test
 	public void creatPersonnel() {
 		DAO<Personnel> pers =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelDAO();
@@ -66,8 +66,7 @@ public class JdbcTest {
 		assertEquals(b.getDatenaissance(),a.getDatenaissance());
 		assertEquals(a.getNumerotelephone(),a.getNumerotelephone());
 		}
-	*/
-	/*
+	
 	@Test
 	public void personnel_read() {
 		DAO<Personnel> perss =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelDAO();
@@ -80,7 +79,7 @@ public class JdbcTest {
 		assertEquals(b.getPrenom(), d.getPrenom());
 		assertEquals(b.getFonction(), d.getFonction());
 		}
-	*/
+	
 	@Test
 	public void personnel_delete() {
 		DAO<Personnel> pe =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelDAO();
@@ -92,4 +91,25 @@ public class JdbcTest {
 		
 		pe.delete(c);
 	}
-}
+	
+	@Test
+	public void personnel_update() {
+		DAO<Personnel> pes =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelDAO();
+		System.out.println(" *********tester UPDATE personnel  ************");
+		b=pes.create(c); // nom =walli
+		d=pes.create(a);  // nom =chek
+		
+		b=pes.update(d);
+		
+		assertEquals(b.getNom(),"chek");
+		assertEquals(b.getPrenom(), a.getPrenom());
+		assertEquals(b.getFonction(), a.getFonction());
+		assertEquals(b.getDatenaissance(),a.getDatenaissance());
+		assertEquals(a.getNumerotelephone(),a.getNumerotelephone());
+		
+		
+	
+		
+	}
+	}
+
