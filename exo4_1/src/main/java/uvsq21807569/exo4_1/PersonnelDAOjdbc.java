@@ -38,7 +38,7 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 	
 	
 	@Override
-	public Personnel read(String nom)  {
+	public Personnel read(String nom) {
 		Personnel a = null;
 		try (Connection con = DriverManager.getConnection(url)) {
 			System.out.println("Recherche " + nom);
@@ -91,21 +91,28 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 
 	@Override
 	public void delete(Personnel obj) {
+	 ;
 		try (Connection con = DriverManager.getConnection(url)) {
+			PreparedStatement statmnt = con.prepareStatement(
+					"SELECT * FROM personnel WHERE nom = ?  ");
+			statmnt.setString(1, obj.getNom());
+			ResultSet resu = statmnt.executeQuery();
+			if(!resu.next()) { 
+				System.out.println("suppression impossible car la personne que vous voulez supprimer n'existe pas");
+			}else {
 			PreparedStatement stat = con.prepareStatement(
 					"DELETE FROM personnel "
 						+ "WHERE nom = ?");
 			stat.setString(1, obj.getNom());
 			int res = stat.executeUpdate();
 			assert res == 1;
-			System.out.println("Suppression de l objet " + obj);
+			System.out.println("Suppression reussite de l objet " + obj.getNom());
+		}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();	
 		}
-		
-	}
-		
+		}
 	}
 
 
