@@ -84,6 +84,7 @@ public class JdbcTest {
 		System.out.println(" *********tester DELETE personnel  ************");
 		b=pe.create(c);
 		d=pe.read("walli");
+		
 		pe.delete(c);
 		d=pe.read("walli");
 		

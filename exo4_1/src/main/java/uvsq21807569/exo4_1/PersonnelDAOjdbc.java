@@ -118,7 +118,7 @@ public class PersonnelDAOjdbc implements DAO<Personnel> {
 			stat.setString(1, obj.getNom());
 			int res = stat.executeUpdate();
 			assert res == 1;
-			
+			System.out.println("suprresion reussite ");
 		}
 		}
 		catch (SQLException e) {
