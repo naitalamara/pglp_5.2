@@ -16,7 +16,7 @@ public class JdbcTest {
 
 	private  PersonnelDAOjdbc jdbc ;
 	private Personnel a ,b ,c,d;
-	Groupe_Personnel grp ,grp2; 
+	Groupe_Personnel grp ,grp2,grp3; 
 	@Before
 	public void init() {
 		b=null ;
@@ -37,8 +37,6 @@ public class JdbcTest {
 	grp = new Groupe_Personnel();
 	grp2 = new Groupe_Personnel(); // groupe vide
 	
-	grp.addpersonnel(a);
-	grp.addpersonnel(c);
 	
 	}
 	
@@ -107,8 +105,39 @@ public class JdbcTest {
 		assertEquals(b.getDatenaissance(),a.getDatenaissance());
 		assertEquals(a.getNumerotelephone(),a.getNumerotelephone());
 		
-		
+		}
 	
+	
+	@Test
+	public void Groupe_create() {
+		DAO<Groupe_Personnel> pes =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelGroupeDAO();
+		System.out.println(" *********tester CREATE Groupe  ************");
+		grp.addpersonnel(a);
+		grp2=pes.create(grp);
+		assertEquals(grp2.getId(),grp.getId());
+		assertEquals(grp2.retournergroupe().size(),grp.retournergroupe().size());
+	}
+	@Test
+	public void Groupe_read() {
+		DAO<Groupe_Personnel> pes =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelGroupeDAO();
+		System.out.println(" *********tester READ Groupe  ************");
+		grp.addpersonnel(a);
+		grp2=pes.create(grp);
+		
+		grp3=pes.read(grp.getId());
+		
+		assertEquals(grp3.getId(),grp2.getId());
+		assertEquals(grp2.retournergroupe().size(),grp3.retournergroupe().size());
+	}
+	@Test
+	public void Groupe_delete() {
+		DAO<Groupe_Personnel> pes =AbstractDaoFactory.getFactory(DAOType.JDBC).getPersonnelGroupeDAO();
+		System.out.println(" *********tester DELETE Groupe  ************");
+		
+		grp.addpersonnel(a);
+		grp2=pes.create(grp);
+		
+		pes.delete(grp2);
 		
 	}
 	}

@@ -34,11 +34,13 @@ public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 					pre.addBatch();
 					}
 					pre.executeBatch();
+					System.out.println("groupe creer" );
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
 					}
 				return obj;
+				
 				}
 
 	
@@ -47,7 +49,7 @@ public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 	public Groupe_Personnel read(String id) {
 		Groupe_Personnel grp = null;
 		try (Connection con = DriverManager.getConnection(url)) {
-			System.out.println("Rechercher la personne avec  " + id);
+			System.out.println("Rechercher la personne avec  ID :" + id);
 			PreparedStatement pre = con.prepareStatement("SELECT * FROM POSSEDE WHERE id = ?");
 			pre.setString(1, id);
 			grp = new Groupe_Personnel(id);
@@ -81,15 +83,15 @@ public class Groupe_PersonnelDaoJdbc implements DAO<Groupe_Personnel> {
 
 			PreparedStatement pre = con.prepareStatement(
 
-					"DELETE FROM Groupe "
+					"DELETE  FROM Groupe "
 					+ "WHERE id = ?");
 
 			pre.setString(1, obj.getId());
 			int result = pre.executeUpdate();
 			assert result == 1;
 
-			System.out.println("Suppression du groupe  " + obj);
-}catch (SQLException e) {
+			System.out.println("Suppression du groupe  ");
+			}catch (SQLException e) {
 
 			e.printStackTrace();
 
